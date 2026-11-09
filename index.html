@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran IPA SMP Interaktif</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti for Quiz Victory -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .tab-btn.active {
+            background-color: #2563eb;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-indigo-600 p-2 rounded-lg">
+                        <i class="fa-solid fa-flask text-2xl text-amber-400"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg sm:text-xl tracking-wide">IPA SMP Lab Interactive</h1>
+                        <p class="text-xs text-indigo-200">Media Pembelajaran Sains Terpadu</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-2">
+                    <button onclick="switchTab('materi')" id="nav-materi" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-800 transition">
+                        <i class="fa-solid fa-book-open mr-2"></i>Materi Pembelajaran
+                    </button>
+                    <button onclick="switchTab('simulasi')" id="nav-simulasi" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-800 transition">
+                        <i class="fa-solid fa-atom mr-2"></i>Simulasi Laboratorium
+                    </button>
+                    <button onclick="switchTab('kuis')" id="nav-kuis" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-800 transition">
+                        <i class="fa-solid fa-gamepad mr-2"></i>Kuis Evaluasi
+                    </button>
+                </div>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md hover:bg-indigo-800 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-indigo-950 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('materi'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800">
+                <i class="fa-solid fa-book-open mr-2"></i>Materi Pembelajaran
+            </button>
+            <button onclick="switchTab('simulasi'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800">
+                <i class="fa-solid fa-atom mr-2"></i>Simulasi Laboratorium
+            </button>
+            <button onclick="switchTab('kuis'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800">
+                <i class="fa-solid fa-gamepad mr-2"></i>Kuis Evaluasi
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- SECTION 1: MATERI PEMBELAJARAN -->
+        <section id="section-materi" class="space-y-6">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 md:p-8 text-white shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold mb-2">Eksplorasi Dunia Sains! 🚀</h2>
+                <p class="text-blue-100 max-w-2xl">Pilih modul materi IPA di bawah ini untuk memulai belajar secara visual dan menyenangkan.</p>
+            </div>
+
+            <!-- Grid Modul Materi -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Modul 1 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="bg-amber-500 h-2"></div>
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl mb-4 font-bold">
+                                🫀
+                            </div>
+                            <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-amber-100 text-amber-800">Kelas 8 - Biologi</span>
+                            <h3 class="text-xl font-bold text-slate-800 mt-2 mb-2">Sistem Pencernaan Manusia</h3>
+                            <p class="text-slate-600 text-sm mb-4">Pelajari perjalanan makanan dalam tubuh, organ pencernaan, serta fungsi enzim pencernaan.</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button onclick="openModal('materi-pencernaan')" class="w-full bg-slate-100 hover:bg-amber-500 hover:text-white text-slate-700 font-semibold py-2 px-4 rounded-lg transition duration-200">
+                            Baca Materi <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modul 2 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="bg-indigo-500 h-2"></div>
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center text-xl mb-4 font-bold">
+                                🪐
+                            </div>
+                            <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-indigo-100 text-indigo-800">Kelas 7 - Fisika/Astronomi</span>
+                            <h3 class="text-xl font-bold text-slate-800 mt-2 mb-2">Sistem Tata Surya</h3>
+                            <p class="text-slate-600 text-sm mb-4">Mengenal susunan planet, karakteristik matahari, serta rotasi dan revolusi bumi.</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button onclick="openModal('materi-tatasurya')" class="w-full bg-slate-100 hover:bg-indigo-600 hover:text-white text-slate-700 font-semibold py-2 px-4 rounded-lg transition duration-200">
+                            Baca Materi <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modul 3 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="bg-emerald-500 h-2"></div>
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl mb-4 font-bold">
+                                ⚡
+                            </div>
+                            <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800">Kelas 9 - Fisika</span>
+                            <h3 class="text-xl font-bold text-slate-800 mt-2 mb-2">Listrik Statis & Dinamis</h3>
+                            <p class="text-slate-600 text-sm mb-4">Konsep muatan listrik, Hukum Coulomb, hingga rangkaian listrik seri dan paralel.</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button onclick="openModal('materi-listrik')" class="w-full bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 font-semibold py-2 px-4 rounded-lg transition duration-200">
+                            Baca Materi <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: SIMULASI INTERAKTIF -->
+        <section id="section-simulasi" class="hidden space-y-6">
+            <div class="bg-slate-800 text-white p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold mb-2">Laboratorium Simulasi Virtual 🧪</h2>
+                <p class="text-slate-300 text-sm">Pilih simulasi di bawah untuk membuktikan konsep sains secara praktis.</p>
+            </div>
+
+            <!-- Tab Navigasi Simulasi -->
+            <div class="flex space-x-2 border-b border-slate-200 pb-2 overflow-x-auto">
+                <button onclick="selectSim('gelombang')" id="tab-sim-gelombang" class="sim-tab px-4 py-2 rounded-lg font-medium text-sm bg-indigo-600 text-white">Simulasi Gelombang</button>
+                <button onclick="selectSim('tatasurya')" id="tab-sim-tatasurya" class="sim-tab px-4 py-2 rounded-lg font-medium text-sm bg-slate-200 text-slate-700 hover:bg-slate-300">Simulasi Orbit Planet</button>
+            </div>
+
+            <!-- Container Canvas Simulasi 1: Gelombang -->
+            <div id="sim-container-gelombang" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold mb-2 text-slate-800">Simulasi Gelombang Transversal</h3>
+                <p class="text-sm text-slate-500 mb-4">Ubah frekuensi dan amplitudo untuk melihat perubahan pola gelombang secara langsung.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2 bg-slate-900 rounded-xl overflow-hidden flex items-center justify-center p-2 min-h-[250px]">
+                        <canvas id="waveCanvas" class="w-full h-64 border border-slate-700 rounded-lg"></canvas>
+                    </div>
+                    <!-- Controls -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-center space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Amplitudo (Tinggi Gelombang): <span id="ampVal" class="font-bold text-indigo-600">30</span></label>
+                            <input type="range" id="ampSlider" min="5" max="80" value="30" class="w-full accent-indigo-600">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Frekuensi (Cepat/Lambat): <span id="freqVal" class="font-bold text-indigo-600">0.02</span></label>
+                            <input type="range" id="freqSlider" min="0.005" max="0.08" step="0.005" value="0.02" class="w-full accent-indigo-600">
+                        </div>
+                        <div class="pt-2 border-t border-slate-200 text-xs text-slate-500">
+                            <p><strong>Rumus Cepat Merambat Gelombang:</strong> <br><span class="font-mono bg-slate-200 px-1 py-0.5 rounded">v = λ × f</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container Canvas Simulasi 2: Tata Surya -->
+            <div id="sim-container-tatasurya" class="hidden bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold mb-2 text-slate-800">Simulasi Rotasi & Orbit Planet</h3>
+                <p class="text-sm text-slate-500 mb-4">Visualisasi pergerakan planet mengelilingi Matahari berdasarkan Hukum Kepler.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2 bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-2 min-h-[300px]">
+                        <canvas id="orbitCanvas" class="w-full h-80 rounded-lg"></canvas>
+                    </div>
+                    <!-- Controls -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-center space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Kecepatan Orbit: <span id="speedVal" class="font-bold text-indigo-600">1x</span></label>
+                            <input type="range" id="speedSlider" min="0.2" max="3" step="0.1" value="1" class="w-full accent-indigo-600">
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="toggleOrbitBtn" onclick="toggleOrbit()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-lg text-sm transition">
+                                <i class="fa-solid fa-pause mr-1"></i> Jeda Simulasi
+                            </button>
+                        </div>
+                        <div class="text-xs text-slate-600 bg-indigo-50 p-3 rounded-lg border border-indigo-100">
+                            <strong>Keterangan:</strong> Planet yang lebih dekat dengan Matahari memiliki periode revolusi lebih cepat dibandingkan planet yang jauh.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: KUIS EVALUASI -->
+        <section id="section-kuis" class="hidden max-w-3xl mx-auto space-y-6">
+            <!-- Starting Card -->
+            <div id="quiz-start-card" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center">
+                <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">Kuis Evaluasi Pemahaman IPA SMP</h2>
+                <p class="text-slate-600 text-sm mb-6 max-w-md mx-auto">Uji pemahamanmu tentang materi biologi, fisika, dan astronomi melalui 5 pertanyaan pilihan ganda.</p>
+                <button onclick="startQuiz()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl transition duration-200 shadow-lg shadow-indigo-200">
+                    Mulai Kuis Sekarang <i class="fa-solid fa-play ml-2"></i>
+                </button>
+            </div>
+
+            <!-- Active Quiz Card -->
+            <div id="quiz-active-card" class="hidden bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+                <!-- Progress Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <span id="quiz-progress-text" class="text-xs font-semibold bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full">Soal 1 dari 5</span>
+                    <span id="quiz-score-live" class="text-xs font-bold text-slate-500">Skor: 0</span>
+                </div>
+
+                <!-- Question Title -->
+                <h3 id="quiz-question" class="text-lg md:text-xl font-bold text-slate-800 mb-6">Pertanyaan akan muncul di sini...</h3>
+
+                <!-- Options -->
+                <div id="quiz-options" class="space-y-3 mb-6">
+                    <!-- Dynamic Options Inserted via JS -->
+                </div>
+
+                <!-- Next Button -->
+                <div class="flex justify-end">
+                    <button id="quiz-next-btn" onclick="nextQuestion()" disabled class="bg-slate-300 text-slate-500 font-semibold px-6 py-2.5 rounded-lg transition duration-200">
+                        Soal Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Result Card -->
+            <div id="quiz-result-card" class="hidden bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center">
+                <div id="result-icon" class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl mb-4">
+                    🏆
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Hasil Kuis Selesai!</h2>
+                <p id="result-message" class="text-slate-500 text-sm mb-4">Kamu telah menyelesaikan kuis dengan sangat baik.</p>
+                
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 max-w-xs mx-auto mb-6">
+                    <span class="text-xs text-slate-400 block mb-1">SKOR AKHIR</span>
+                    <span id="final-score" class="text-4xl font-extrabold text-indigo-600">80</span>
+                    <span class="text-sm text-slate-500"> / 100</span>
+                </div>
+
+                <button onclick="startQuiz()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-lg transition duration-200">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> Ulangi Kuis
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p>&copy; 2026 Media Pembelajaran IPA SMP - Dibuat untuk Kemudahan Belajar Interaktif.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL POPUP UNTUK MATERI DETAIL -->
+    <div id="materi-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 md:p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h3 id="modal-title" class="text-2xl font-bold text-slate-800">Judul Materi</h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 p-1 text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="modal-content" class="text-slate-600 space-y-4 text-sm leading-relaxed">
+                <!-- Dynamic Material Content -->
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex justify-end">
+                <button onclick="closeModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-5 py-2 rounded-lg text-sm transition">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CODE (Modular & Standalone Ready) -->
+    <script>
+        /* ===================================================
+           1. NAVIGASI TAB & MODAL SYSTEM
+           =================================================== */
+        function switchTab(tabName) {
+            // Hide all sections
+            document.getElementById('section-materi').classList.add('hidden');
+            document.getElementById('section-simulasi').classList.add('hidden');
+            document.getElementById('section-kuis').classList.add('hidden');
+
+            // Reset Nav Styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-800', 'text-white');
+            });
+
+            // Show selected section
+            document.getElementById(`section-${tabName}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabName}`).classList.add('bg-indigo-800', 'text-white');
+
+            // Trigger canvas resize/render if simulation tab selected
+            if (tabName === 'simulasi') {
+                initSimulations();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        /* Detail Data Materi */
+        const materiData = {
+            'materi-pencernaan': {
+                title: 'Sistem Pencernaan Manusia',
+                content: `
+                    <p>Sistem pencernaan manusia berfungsi untuk memecah molekul makanan yang kompleks menjadi molekul yang lebih sederhana agar dapat diserap oleh tubuh.</p>
+                    <h4 class="font-bold text-slate-800 text-base mt-3">Urutan Organ Pencernaan:</h4>
+                    <ol class="list-decimal pl-5 space-y-1">
+                        <li><strong>Mulut:</strong> Pencernaan mekanik (gigi) dan kimiawi (enzim ptialin/amilase).</li>
+                        <li><strong>Kerongkongan (Esofagus):</strong> Gerak peristaltik mendorong makanan ke lambung.</li>
+                        <li><strong>Lambung:</strong> Mengolah makanan dengan asam klorida (HCl), enzim pepsin, dan renin.</li>
+                        <li><strong>Usus Halus:</strong> Tempat penyerapan nutrisi utama dengan bantuan enzim pankreas dan empedu.</li>
+                        <li><strong>Usus Besar:</strong> Penyerapan air dan pembentukan feses dengan bantuan bakteri <em>E. coli</em>.</li>
+                        <li><strong>Anus:</strong> Muara akhir pembuangan sisa pencernaan.</li>
+                    </ol>
+                `
+            },
+            'materi-tatasurya': {
+                title: 'Sistem Tata Surya',
+                content: `
+                    <p>Tata Surya adalah kumpulan benda langit yang terdiri atas sebuah bintang yang disebut <strong>Matahari</strong> dan semua objek yang terikat oleh gaya gravitasinya.</p>
+                    <h4 class="font-bold text-slate-800 text-base mt-3">8 Planet Utama (Urutan dari Matahari):</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Merkurius:</strong> Planet terkecil & terdekat dari matahari.</li>
+                        <li><strong>Venus:</strong> Planet terpanas akibat efek rumah kaca tebal.</li>
+                        <li><strong>Bumi:</strong> Satu-satunya planet tempat tinggal makhluk hidup.</li>
+                        <li><strong>Mars:</strong> Dikenal sebagai Planet Merah.</li>
+                        <li><strong>Yupiter:</strong> Planet terbesar dalam tata surya.</li>
+                        <li><strong>Saturnus:</strong> Planet bercincin paling indah.</li>
+                        <li><strong>Uranus:</strong> Planet es raksasa dengan rotasi miring.</li>
+                        <li><strong>Neptunus:</strong> Planet terjauh dan berangin kencang.</li>
+                    </ul>
+                `
+            },
+            'materi-listrik': {
+                title: 'Listrik Statis & Dinamis',
+                content: `
+                    <p><strong>Listrik Statis</strong> adalah ketidakseimbangan muatan listrik pada permukaan benda yang diam (tidak mengalir). Contoh: Penggaris plastik yang digosokkan ke rambut dapat menarik serpihan kertas kecil.</p>
+                    <h4 class="font-bold text-slate-800 text-base mt-3">Hukum Coulomb:</h4>
+                    <p>Besar gaya tarik-menarik atau tolak-menolak antara dua muatan berbanding lurus dengan besar kedua muatan dan berbanding terbalik dengan kuadrat jaraknya.</p>
+                    <h4 class="font-bold text-slate-800 text-base mt-3">Listrik Dinamis:</h4>
+                    <p>Aliran muatan listrik (elektron) yang bergerak melalui penghantar. Terbagi menjadi:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Rangkaian Seri:</strong> Kuat arus sama di setiap titik, kuat tegangan terbagi.</li>
+                        <li><strong>Rangkaian Paralel:</strong> Tegangan sama di setiap cabang, arus terbagi.</li>
+                    </ul>
+                `
+            }
+        };
+
+        function openModal(id) {
+            const data = materiData[id];
+            if (data) {
+                document.getElementById('modal-title').innerText = data.title;
+                document.getElementById('modal-content').innerHTML = data.content;
+                document.getElementById('materi-modal').classList.remove('hidden');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('materi-modal').classList.add('hidden');
+        }
+
+        /* ===================================================
+           2. SIMULASI LABORATORIUM (CANVAS API)
+           =================================================== */
+        let simInitialized = false;
+        let waveAnimId, orbitAnimId;
+        let isOrbitRunning = true;
+
+        function selectSim(simName) {
+            document.querySelectorAll('.sim-tab').forEach(b => {
+                b.classList.remove('bg-indigo-600', 'text-white');
+                b.classList.add('bg-slate-200', 'text-slate-700');
+            });
+            document.getElementById(`tab-sim-${simName}`).classList.remove('bg-slate-200', 'text-slate-700');
+            document.getElementById(`tab-sim-${simName}`).classList.add('bg-indigo-600', 'text-white');
+
+            document.getElementById('sim-container-gelombang').classList.add('hidden');
+            document.getElementById('sim-container-tatasurya').classList.add('hidden');
+            document.getElementById(`sim-container-${simName}`).classList.remove('hidden');
+        }
+
+        function initSimulations() {
+            if (simInitialized) return;
+            simInitialized = true;
+            initWaveSimulation();
+            initOrbitSimulation();
+        }
+
+        /* --- Simulasi 1: Gelombang Transversal --- */
+        function initWaveSimulation() {
+            const canvas = document.getElementById('waveCanvas');
+            const ctx = canvas.getContext('2d');
+            const ampSlider = document.getElementById('ampSlider');
+            const freqSlider = document.getElementById('freqSlider');
+            const ampVal = document.getElementById('ampVal');
+            const freqVal = document.getElementById('freqVal');
+
+            let step = 0;
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight || 250;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            function draw() {
+                const amplitude = parseFloat(ampSlider.value);
+                const frequency = parseFloat(freqSlider.value);
+                ampVal.innerText = amplitude;
+                freqVal.innerText = frequency;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw Axis Line
+                ctx.beginPath();
+                ctx.strokeStyle = '#334155';
+                ctx.moveTo(0, canvas.height / 2);
+                ctx.lineTo(canvas.width, canvas.height / 2);
+                ctx.stroke();
+
+                // Draw Wave Line
+                ctx.beginPath();
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#6366f1';
+
+                for (let x = 0; x < canvas.width; x++) {
+                    const y = canvas.height / 2 + Math.sin(x * frequency + step) * amplitude;
+                    if (x === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                step += 0.05;
+                waveAnimId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        /* --- Simulasi 2: Orbit Planet --- */
+        function initOrbitSimulation() {
+            const canvas = document.getElementById('orbitCanvas');
+            const ctx = canvas.getContext('2d');
+            const speedSlider = document.getElementById('speedSlider');
+            const speedVal = document.getElementById('speedVal');
+
+            let angleMercury = 0, angleVenus = 0, angleEarth = 0, angleMars = 0;
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight || 300;
+            }
+            resizeCanvas();
+
+            function draw() {
+                if (!isOrbitRunning) {
+                    orbitAnimId = requestAnimationFrame(draw);
+                    return;
+                }
+
+                const speedMultiplier = parseFloat(speedSlider.value);
+                speedVal.innerText = speedMultiplier + 'x';
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+
+                // Draw Sun
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
+                ctx.fillStyle = '#f59e0b';
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#f59e0b';
+                ctx.fill();
+                ctx.shadowBlur = 0; // reset shadow
+
+                // Planets Config (distance, radius, color, speed)
+                const planets = [
+                    { r: 45, radius: 4, color: '#a1a1aa', angle: angleMercury, speed: 0.04 },
+                    { r: 70, radius: 6, color: '#fba518', angle: angleVenus, speed: 0.025 },
+                    { r: 100, radius: 7, color: '#3b82f6', angle: angleEarth, speed: 0.015 },
+                    { r: 130, radius: 5, color: '#ef4444', angle: angleMars, speed: 0.009 }
+                ];
+
+                planets.forEach((p, idx) => {
+                    // Draw Orbit Circle
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, p.r, 0, Math.PI * 2);
+                    ctx.strokeStyle = '#334155';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // Planet Position
+                    const px = centerX + Math.cos(p.angle) * p.r;
+                    const py = centerY + Math.sin(p.angle) * p.r;
+
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+
+                    // Update Angle
+                    const increment = p.speed * speedMultiplier;
+                    if (idx === 0) angleMercury += increment;
+                    if (idx === 1) angleVenus += increment;
+                    if (idx === 2) angleEarth += increment;
+                    if (idx === 3) angleMars += increment;
+                });
+
+                orbitAnimId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        function toggleOrbit() {
+            isOrbitRunning = !isOrbitRunning;
+            const btn = document.getElementById('toggleOrbitBtn');
+            btn.innerHTML = isOrbitRunning 
+                ? '<i class="fa-solid fa-pause mr-1"></i> Jeda Simulasi' 
+                : '<i class="fa-solid fa-play mr-1"></i> Lanjutkan Simulasi';
+        }
+
+        /* ===================================================
+           3. KUIS EVALUASI (INTERACTIVE QUIZ SYSTEM)
+           =================================================== */
+        const quizQuestions = [
+            {
+                q: "Organ sistem pencernaan manusia yang berfungsi mencerna makanan secara kimiawi menggunakan enzim pepsin dan renin adalah...",
+                options: ["Mulut", "Lambung", "Usus Halus", "Usus Besar"],
+                answer: 1
+            },
+            {
+                q: "Planet dalam sistem tata surya kita yang terkenal memiliki suhu permukaan paling panas karena efek rumah kaca tebal adalah...",
+                options: ["Merkurius", "Mars", "Venus", "Yupiter"],
+                answer: 2
+            },
+            {
+                q: "Satuan Internasional (SI) untuk mengukur Frekuensi Gelombang adalah...",
+                options: ["Hertz (Hz)", "Joule (J)", "Watt (W)", "Meter (m)"],
+                answer: 0
+            },
+            {
+                q: "Benda bermuatan positif akan saling tolak-menolak jika didekatkan dengan benda yang bermuatan...",
+                options: ["Negatif", "Positif", "Netral", "Tanpa Muatan"],
+                answer: 1
+            },
+            {
+                q: "Organ yang berfungsi menyerap sari-sari makanan ke dalam aliran darah adalah...",
+                options: ["Kerongkongan", "Lambung", "Usus Halus", "Anus"],
+                answer: 2
+            }
+        ];
+
+        let currentQ = 0;
+        let quizScore = 0;
+        let selectedOption = null;
+
+        function startQuiz() {
+            currentQ = 0;
+            quizScore = 0;
+            document.getElementById('quiz-start-card').classList.add('hidden');
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('quiz-active-card').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            selectedOption = null;
+            const qData = quizQuestions[currentQ];
+            document.getElementById('quiz-progress-text').innerText = `Soal ${currentQ + 1} dari ${quizQuestions.length}`;
+            document.getElementById('quiz-score-live').innerText = `Skor: ${quizScore}`;
+            document.getElementById('quiz-question').innerText = qData.q;
+
+            const nextBtn = document.getElementById('quiz-next-btn');
+            nextBtn.disabled = true;
+            nextBtn.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-700');
+            nextBtn.classList.add('bg-slate-300', 'text-slate-500');
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            qData.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 transition font-medium text-slate-700 flex justify-between items-center";
+                btn.innerHTML = `<span>${String.fromCharCode(65 + index)}. ${opt}</span> <i class="fa-regular fa-circle text-slate-400"></i>`;
+                btn.onclick = () => selectOption(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(index, btnElement) {
+            selectedOption = index;
+            const optionsContainer = document.getElementById('quiz-options');
+            
+            // Reset state
+            Array.from(optionsContainer.children).forEach(child => {
+                child.className = "w-full text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 transition font-medium text-slate-700 flex justify-between items-center";
+                child.querySelector('i').className = "fa-regular fa-circle text-slate-400";
+            });
+
+            // Set active state
+            btnElement.className = "w-full text-left p-4 rounded-xl border-2 border-indigo-600 bg-indigo-50 transition font-semibold text-indigo-900 flex justify-between items-center";
+            btnElement.querySelector('i').className = "fa-solid fa-circle-check text-indigo-600";
+
+            // Enable Next button
+            const nextBtn = document.getElementById('quiz-next-btn');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('bg-slate-300', 'text-slate-500');
+            nextBtn.classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-700');
+        }
+
+        function nextQuestion() {
+            if (selectedOption === null) return;
+
+            // Check Answer
+            if (selectedOption === quizQuestions[currentQ].answer) {
+                quizScore += 20;
+            }
+
+            currentQ++;
+
+            if (currentQ < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-active-card').classList.add('hidden');
+            document.getElementById('quiz-result-card').classList.remove('hidden');
+            document.getElementById('final-score').innerText = quizScore;
+
+            const msg = document.getElementById('result-message');
+            if (quizScore >= 80) {
+                msg.innerText = "Luar Biasa! Kamu sangat menguasai materi IPA SMP ini.";
+                if (typeof confetti === 'function') confetti();
+            } else if (quizScore >= 60) {
+                msg.innerText = "Bagus! Kamu sudah memahami sebagian besar materi.";
+            } else {
+                msg.innerText = "Jangan berkecil hati! Yuk baca lagi materinya dan coba kembali.";
+            }
+        }
+
+        // Initialize First View
+        window.onload = function() {
+            switchTab('materi');
+        };
+    </script>
+</body>
+</html>
